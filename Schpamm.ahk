@@ -7,82 +7,172 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;Menu, Tray, Icon, C:\Users\Matas\Desktop\PoGo\BotControl\18316-84.ico
 
+; reikalingi variables
+activeGUI=0
 
 saved=0
-yo=1
 started=0
+
+; special spam arrays
+OceanManArray := Object()
+OceanManArray[0] := "🌊 OCEAN MAN 🌊 😍"
+OceanManArray[1] := "Take me by the hand ✋"
+OceanManArray[2] := "🏝️ lead me to the land 🏝️"
+OceanManArray[3] := "that you understand 🙌"
+OceanManArray[4] := "🌊 OCEAN MAN 🌊 😍"
+OceanManArray[5] := "The voyage 🚲 to"
+OceanManArray[6] := "the corner of the 🌎 globe "
+OceanManArray[7] := "is a real trip 👌"
+OceanManArray[8] := "🌊 OCEAN MAN 🌊 😍"
+OceanManArray[9] := "The crust of a tan man "
+OceanManArray[10] := "👳 imbibed by the sand 👍"
+OceanManArray[11] := "💦 Soaking up the"
+OceanManArray[12] := "💦 thirst of the land 💯"
+
 
 ; main GUI window: text spam and randomized spam
 Gui, Main:New
 
-GUI, Main:FONT, S40
+GUI, Main:FONT, S30
 GUI, Main:add, text, , Schpamm V0.4
-GUI, Main:FONT, S20
-Gui, Main:Add, Edit, w300 r1 vText, Text to spam
-Gui, Main:Add, Edit,w200 r1 vDelay Number, 50
+GUI, Main:FONT, S15
 
-Gui, Main:Add, Edit,y250 x50 w60 r1 vRandLimit1 Number, 20
-Gui, Main:Add, Edit,y250 x280 w60 r1 vRandLimit2 Number, 50
+Gui, Main:Add, Button,x500 y30 w100 h100 gSwitchToSpecial, Special spam
+
+GUI, Main:add, text,x50 y100 , Config:
+Gui, Main:Add, Edit,x50 w200 r1 vText, Text to spam
+Gui, Main:Add, Edit,x50 y200 w100 r1 vDelay Number, 50
+
+Gui, Main:Add, Edit,y270 x50 w60 r1 vRandLimit1 Number, 20
+Gui, Main:Add, Edit,y270 x280 w60 r1 vRandLimit2 Number, 50
 
 GUI, Main:FONT, S30
-Gui, Main:Add, Button,x50 w500 h100 gStart , SAVE & BEGIN
+Gui, Main:Add, Button,x50 w500 h80 gStart , SAVE AND BEGIN
 GUI, Main:FONT, S08
 Gui, Main:Add, Checkbox, vUserandom, Use random shit instead of input (specify random length limits if you check this)
 GUI, Main:add, text, , @2017 Matas Rastenis    |   F1 to start, F2 to stop, F3 to show GUI, F5 to quit |   Enjoy cyker
-GUI, Main:add, text,x80 y90 , cuz scharkee get it huehuehhuuhu
+GUI, Main:add, text,x80 y65 , cuz scharkee get it huehuehhuuhu
 GUI, Main:FONT, S15
-GUI, Main:add, text,x260 y200 , Delay
+GUI, Main:add, text,x160 y210 , Delay(ms)
+GUI, Main:add, text,x260 y160 , Spam Text
 GUI, Main:FONT, S10
-GUI, Main:add, text,x120 y260 , Random Lower Char Limit
-GUI, Main:add, text,x350 y260 , Random Upper Char Limit
+GUI, Main:add, text,x120 y290 , Random Lower Char Limit
+GUI, Main:add, text,x350 y290 , Random Upper Char Limit
 
 GUI, Main:show
 
 ; second GUI reserved for specialized spam
 Gui, Sec:New
-GUI, Sec:FONT, S40
+GUI, Sec:FONT, S30
 GUI, Sec:add, text, , Schpamm V0.4
 GUI, Sec:FONT, S20
+Gui, Sec:Add, Button,x400 y30 w140 h100 gSwitchToMain, Standard spam
+
+Gui, Sec:Add, Radio,x50 y90 vOceanmanRadio Checked, Oceanman
+Gui, Sec:Add, Radio,x50 y120 vWaveRadio, Wave
+Gui, Sec:Add, Radio,x50 y150 vGachiRadio, Gachi fest
+Gui, Sec:Add, Edit,x50 y250 w50 r1 vDelaySpecial Number, 100
+GUI, Sec:add, text,x110 y250 , Speed(intervals in ms)
+Gui, Sec:Add, Button,x50 w500 h80 gStartSpecial , SAVE AND BEGIN
+GUI, Sec:FONT, S08
+GUI, Sec:add, text, , @2017 Matas Rastenis    |   F1 to start, F2 to stop, F3 to show GUI, F5 to quit |   Enjoy cyker
 
 return
 
 
 F1::
 
-if saved=1
+; MAIN SPAM
+if activeGUI=0
 {
-started:=1
-   Loop
-   {
-        if Userandom=1
+	if saved=1
+	{
+		started:=1
+		Loop
+	{
+		if Userandom=1
 		{
-		    Random, rand1, RandLimit1,RandLimit2
+			Random, rand1, RandLimit1,RandLimit2
 			Text:=RandomStr(rand1,48,122)
 		}
-   
-   
-   
-        Send, %Text%
+	
+	
+	
+		Send, %Text%
 		Sleep, %Delay%
 		Send, {Enter}
-		
-		
+			
+			
 		if GetKeyState("F2" , "P")
 		{
-		
-		   started:=0
-		   Break
-		   
+			
+			started:=0
+			Break
+			
 		}
-		
+			
+	}
 
-   }
+	}else
+	{
+		MsgBox save the menuuu u feggit
 
-}else
+	}
+}else ; SPECIAL SPAM
 {
-    MsgBox save the menuuu u feggit
+	if saved=1
+	{
+		started:=1
+	
+		if OceanmanRadio=1
+		{
+			currentLine=0
+			
+			length= % OceanManArray.Length()
+			Loop
+			{
+				Clipboard = % OceanManArray[currentLine]
+				Sleep, 10
+				Send, ^v
+				Sleep, 100
+				Send, {Enter}
+
+				if currentLine= %length% ; resets back to beginning
+				{
+					currentLine=0
+				}
+				currentLine++
+
+				if GetKeyState("F2" , "P")
+				{
+					Clipboard:=
+					started:=0
+					Break
+					
+				}
+
+			}
+			
+		}else if WaveRadio=1
+		{
+			
+		}else if GachiRadio=1
+		{
+			
+		}
+			
+
+			
+	
+
+	}else
+	{
+		MsgBox save the menuuu u feggit
+
+	}
 
 }
+
 
 return
 
@@ -103,19 +193,57 @@ if Delay is not integer
 
 }
 saved:=1
+
+return
+
+StartSpecial:
+
+GuiControlGet, DelaySpecial
+GuiControlGet, OceanmanRadio
+GuiControlGet, WaveRadio
+GuiControlGet, GachiRadio
+
+
+
+Gui,Sec:Hide
+
+if DelaySpecial is not integer
+{
+      MsgBox ENTER A FUCKIN NUMBER U JEKASS ne srs stop breaking my shit
+	  GUI, Sec:Show
+
+}
+saved:=1
 return
 
 
+SwitchToSpecial:
+Gui,Main:Hide
+Gui,Sec:Show
+activeGUI=1
+
+return
+
+SwitchToMain:
+
+Gui,Sec:Hide
+Gui,Main:Show
+activeGUI=0
+
+return
 
 F3::
 
 if started=0
 {
-Gui, Main:Show
+	if activeGUI=0
+	{
+    	Gui, Main:Show
+	}else{
+        Gui, Sec:Show
+	}
+
 }
-
-
-
 
 return
 
@@ -139,9 +267,6 @@ ExitApp
 
 F5::
 ExitApp
-
-
-
 
 
 return
