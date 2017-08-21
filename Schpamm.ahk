@@ -49,6 +49,38 @@ GachiArray[15] := "♂ FUCK ♂ YOU ♂"
 GachiArray[16] := "♂ IT'S SO FUCKING DEEP ♂"
 GachiArray[17] := "♂ COME ON COLLEGE BOY ♂"
 GachiArray[18] := "♂ YES ♂ SIR ♂"
+GachiArray[19] := "♂ FUCKING ♂ CUMMING ♂"
+GachiArray[20] := "♂ AAAAAAAAAHHH ♂"
+GachiArray[21] := "♂ OH ♂ MY ♂ SHOULDER ♂"
+GachiArray[22] := "♂ FUCK YOU LEATHER MAN ♂"
+GachiArray[23] := "♂ OH SHIT IM SORRY ♂"
+GachiArray[24] := "♂ SORRY ♂ FOR ♂ WHAT? ♂"
+GachiArray[25] := "♂ DO YOU LIKE WHAT YOU SEE? ♂"
+GachiArray[26] := "♂ I DONT DO ANAL ♂"
+GachiArray[27] := "♂ STICK YOUR FINGER IN MY ASS ♂"
+GachiArray[28] := "♂ THATS ♂ AMAZING ♂"
+
+WaveArray := Object()
+WaveArray[0] := "-"
+WaveArray[1] := "--"
+WaveArray[2] := "---"
+WaveArray[3] := "----"
+WaveArray[4] := "-----"
+WaveArray[5] := "------"
+WaveArray[6] := "-------"
+WaveArray[7] := "--------"
+WaveArray[8] := "---------"
+WaveArray[9] := "--------"
+WaveArray[10] := "-------"
+WaveArray[11] := "------"
+WaveArray[12] := "-----"
+WaveArray[13] := "----"
+WaveArray[14] := "---"
+WaveArray[15] := "--"
+WaveArray[16] := "-"
+WaveArray[17] := " "
+
+
 
 ; main GUI window: text spam and randomized spam
 Gui, Main:New
@@ -153,7 +185,7 @@ if activeGUI=0
 			
 		}else if WaveRadio=1
 		{
-			
+			SpamArray:=WaveArray
 		}else if GachiRadio=1
 		{
 			SpamArray:=GachiArray
@@ -169,9 +201,9 @@ if activeGUI=0
 			{
 				Random, currentLine, 0,%length%
 				Clipboard = % SpamArray[currentLine]
-				Sleep, 10
+				Sleep, 5
 				Send, ^v
-				Sleep, 100
+				Sleep, %DelaySpecial%
 				Send, {Enter}
 
 
@@ -189,9 +221,9 @@ if activeGUI=0
 			Loop
 			{
 				Clipboard = % SpamArray[currentLine]
-				Sleep, 10
+				Sleep, 5
 				Send, ^v
-				Sleep, 100
+				Sleep, %DelaySpecial%
 				Send, {Enter}
 
 				if currentLine= %length% ; resets back to beginning
