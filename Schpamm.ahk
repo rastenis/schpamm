@@ -80,6 +80,17 @@ WaveArray[15] := "--"
 WaveArray[16] := "-"
 WaveArray[17] := " "
 
+CentipedeArray:= Object()
+
+CentipedeArray[0] := "╚═(███)═╝"
+CentipedeArray[1] := ".╚═(███)═╝"
+CentipedeArray[2] := "..╚═(███)═╝"
+CentipedeArray[3] := "...╚═(███)═╝"
+CentipedeArray[4] := "...╚═(███)═╝"
+CentipedeArray[5] := "..╚═(███)═╝"
+CentipedeArray[6] := ".╚═(███)═╝"
+CentipedeArray[7] := "╚═(███)═╝"
+
 
 
 ; main GUI window: text spam and randomized spam
@@ -119,10 +130,11 @@ GUI, Sec:FONT, S30
 GUI, Sec:add, text, , Schpamm V0.4
 GUI, Sec:FONT, S20
 Gui, Sec:Add, Button,x400 y30 w140 h100 gSwitchToMain, Standard spam
-
+GUI, Sec:FONT, S15
 Gui, Sec:Add, Radio,x50 y90 vOceanmanRadio Checked, Oceanman
 Gui, Sec:Add, Radio,x50 y120 vWaveRadio, Wave
 Gui, Sec:Add, Radio,x50 y150 vGachiRadio, Gachi fest
+Gui, Sec:Add, Radio,x50 y180 vCentipedeRadio, Centipede
 Gui, Sec:Add, Edit,x50 y250 w50 r1 vDelaySpecial Number, 100
 GUI, Sec:add, text,x110 y250 , Speed(intervals in ms)
 Gui, Sec:Add, Checkbox, vUserandomSpecial, Randomize order
@@ -177,7 +189,9 @@ if activeGUI=0
 	{
 		started:=1
 		SpamArray:=Object()
-	
+
+
+	 	; ARRAY ASSIGNMENT and precursors, if any
 		if OceanmanRadio=1
 		{
 			SpamArray:=OceanManArray
@@ -189,6 +203,12 @@ if activeGUI=0
 		}else if GachiRadio=1
 		{
 			SpamArray:=GachiArray
+		}else if CentipedeRadio=1
+		{
+			SpamArray:=CentipedeArray
+			Send,  ". .╚⊙ ⊙╝.."
+			Sleep, 10
+			Send, {Enter}
 		}
 
 		currentLine=0
@@ -201,7 +221,7 @@ if activeGUI=0
 			{
 				Random, currentLine, 0,%length%
 				Clipboard = % SpamArray[currentLine]
-				Sleep, 5
+				Sleep, 10
 				Send, ^v
 				Sleep, %DelaySpecial%
 				Send, {Enter}
@@ -286,6 +306,7 @@ GuiControlGet, OceanmanRadio
 GuiControlGet, WaveRadio
 GuiControlGet, GachiRadio
 GuiControlGet, UserandomSpecial
+GuiControlGet, CentipedeRadio
 
 Gui,Sec:Hide
 
