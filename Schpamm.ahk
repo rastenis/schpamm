@@ -29,6 +29,26 @@ OceanManArray[10] := "👳 imbibed by the sand 👍"
 OceanManArray[11] := "💦 Soaking up the"
 OceanManArray[12] := "💦 thirst of the land 💯"
 
+GachiArray := Object()
+GachiArray[0] := "♂ FUCK ♂ YOU ♂"
+GachiArray[1] := "♂ I'LL SHOW YOU ♂"
+GachiArray[2] := "♂ I'M THE DUNGEON MASTER ♂"
+GachiArray[3] := "♂ I KNOW YOUR DEEP DARK FANTASIES ♂"
+GachiArray[4] := "♂ SUCTION ♂"
+GachiArray[5] := "♂ FUCKING SLAVE ♂"
+GachiArray[6] := "♂ GET YOUR ASS BACK HERE ♂"
+GachiArray[7] := "♂ TAKE IT, BOY ♂"
+GachiArray[8] := "♂ YES ♂ SIR ♂"
+GachiArray[9] := "♂ WOOP ♂"
+GachiArray[10] := "♂ LUBE IT UP ♂"
+GachiArray[11] := "♂ FISTING IS $300 ♂"
+GachiArray[12] := "♂ THANK YOU SIR ♂"
+GachiArray[13] := "♂ FUCKING SLAVE ♂"
+GachiArray[14] := "♂ YOU RIPPED MY FUCKING PANTS ♂"
+GachiArray[15] := "♂ FUCK ♂ YOU ♂"
+GachiArray[16] := "♂ IT'S SO FUCKING DEEP ♂"
+GachiArray[17] := "♂ COME ON COLLEGE BOY ♂"
+GachiArray[18] := "♂ YES ♂ SIR ♂"
 
 ; main GUI window: text spam and randomized spam
 Gui, Main:New
@@ -123,15 +143,27 @@ if activeGUI=0
 	if saved=1
 	{
 		started:=1
+		SpamArray:=Object()
 	
 		if OceanmanRadio=1
 		{
-			currentLine=0
+			SpamArray:=OceanManArray
+
 			
-			length= % OceanManArray.Length()
+		}else if WaveRadio=1
+		{
+			
+		}else if GachiRadio=1
+		{
+			SpamArray:=GachiArray
+		}
+
+		currentLine=0
+			
+		length= % SpamArray.Length()
 			Loop
 			{
-				Clipboard = % OceanManArray[currentLine]
+				Clipboard = % SpamArray[currentLine]
 				Sleep, 10
 				Send, ^v
 				Sleep, 100
@@ -152,14 +184,6 @@ if activeGUI=0
 				}
 
 			}
-			
-		}else if WaveRadio=1
-		{
-			
-		}else if GachiRadio=1
-		{
-			
-		}
 			
 
 			
