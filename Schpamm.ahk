@@ -93,6 +93,7 @@ Gui, Sec:Add, Radio,x50 y120 vWaveRadio, Wave
 Gui, Sec:Add, Radio,x50 y150 vGachiRadio, Gachi fest
 Gui, Sec:Add, Edit,x50 y250 w50 r1 vDelaySpecial Number, 100
 GUI, Sec:add, text,x110 y250 , Speed(intervals in ms)
+Gui, Sec:Add, Checkbox, vUserandomSpecial, Randomize order
 Gui, Sec:Add, Button,x50 w500 h80 gStartSpecial , SAVE AND BEGIN
 GUI, Sec:FONT, S08
 GUI, Sec:add, text, , @2017 Matas Rastenis    |   F1 to start, F2 to stop, F3 to show GUI, F5 to quit |   Enjoy cyker
@@ -161,6 +162,30 @@ if activeGUI=0
 		currentLine=0
 			
 		length= % SpamArray.Length()
+
+		if UserandomSpecial=1
+		{
+			Loop
+			{
+				Random, currentLine, 0,%length%
+				Clipboard = % SpamArray[currentLine]
+				Sleep, 10
+				Send, ^v
+				Sleep, 100
+				Send, {Enter}
+
+
+				if GetKeyState("F2" , "P")
+				{
+					Clipboard:=
+					started:=0
+					Break
+					
+				}
+
+			}
+
+		}else{
 			Loop
 			{
 				Clipboard = % SpamArray[currentLine]
@@ -184,6 +209,8 @@ if activeGUI=0
 				}
 
 			}
+		}
+
 			
 
 			
@@ -226,8 +253,7 @@ GuiControlGet, DelaySpecial
 GuiControlGet, OceanmanRadio
 GuiControlGet, WaveRadio
 GuiControlGet, GachiRadio
-
-
+GuiControlGet, UserandomSpecial
 
 Gui,Sec:Hide
 
